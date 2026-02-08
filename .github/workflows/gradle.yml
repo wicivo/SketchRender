@@ -22,15 +22,18 @@ jobs:
         distribution: 'temurin'
 
     - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+      uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582
 
     - name: Build with Gradle Wrapper
       run: |
         chmod +x gradlew
         ./gradlew build
 
+    - name: List built files
+      run: find . -name "*.jar"
+
     - name: capture build artifacts
       uses: actions/upload-artifact@v4
       with:
         name: Artifacts
-        path: build/libs/
+        path: '**/build/libs/*.jar'
